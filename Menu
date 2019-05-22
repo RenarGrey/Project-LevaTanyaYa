@@ -1,0 +1,156 @@
+from tkinter import *
+
+root=Tk()
+root.withdraw()
+
+
+def outgo(event):
+    root.destroy()
+    
+
+def single(event):
+    root.destroy()
+    subprocess.run(['python','Devourer.py'])
+
+    
+
+
+    
+def back1(event):
+    title.configure(text = 'Добро пожаловать!')
+    play.configure(text = 'Играть')
+    play.bind("<Button-1>", start)
+    option.configure(text = 'Настройки')
+    end.configure(text = 'Выход')
+    end.bind("<Button-1>",outgo)
+
+
+def back2(event):
+    title.configure(text = 'Настройки')
+    play.configure(text = 'Стиль Окна')
+    play.bind("<Button-1>",color)
+    option.configure(text = 'Размер Окна')
+    end.configure(text = 'Назад')
+    end.bind("<Button-1>",back1)
+
+    
+    
+    
+def purple(event):
+    canvas.configure(bg = 'Gray')
+    play.configure(bg = 'Purple', fg = 'White')
+    option.configure(bg = 'Purple', fg = 'White')
+    end.configure(bg = 'Purple', fg = 'White')
+
+def yellow(event):
+    canvas.configure(bg = 'Green')
+    play.configure(bg = 'Yellow', fg = 'Black')
+    option.configure(bg = 'Yellow', fg = 'Black')
+    end.configure(bg = 'Yellow', fg = 'Black')
+    
+    
+def color(event):
+    title.configure(text='Стиль Окна')
+    play.configure(text = 'Грустный')
+    play.bind("<Button-1>", purple)
+    option.configure(text = 'Радостный (можно зачет?)')
+    option.bind("<Button-1>", yellow)
+    end.configure(text = 'Назад')
+    end.bind("<Button-1>", back2)
+    
+    
+def start(event):
+    play.configure(text = 'Один игрок')
+    play.bind("<Button-1>", single)
+    option.configure(text = 'Два игрока')
+    end.configure(text = 'Назад')
+    end.bind("<Button-1>", back1)
+    title.configure(text = 'Выберите Режим')
+       
+
+    back1b = canvas.create_window(endx,endy+2*d, window=back1)
+
+    canvas.pack(expand=YES, fill=BOTH)
+
+
+def setti(event):
+    play.configure(text = 'Стиль Окна')
+    play.bind("<Button-1>", color)
+    option.configure(text = 'Размер Окна')
+    end.configure(text = 'Назад')
+    end.bind("<Button-1>", back1)
+    title.configure(text = 'Настройки')
+
+
+
+
+introduce= Toplevel(root)
+introduce.geometry('1650x900')
+introduce.title("Добро пожаловать!")
+
+
+canvas = Canvas(introduce, width=1650, height=900, bg='gray') # Холст. 0,0 - верхний левый угол.
+
+
+    
+title=Label(introduce,text='Добро пожаловать!')
+title.config(bg='gray',fg='white')
+title.config(font=('helvetica', 40, 'bold italic'))
+
+title_x=850
+canvas.create_window(title_x,200, window=title)
+
+endx=title_x
+endy=400
+d=150
+
+
+play = Button(introduce, text='Играть', padx=10, pady=30)
+play.pack(padx=20, pady=20)
+play.config(cursor='hand2')
+play.config(bd=8, relief=RAISED)
+play.config(bg='purple', fg='white')
+play.config(font=('helvetica', 20, 'underline italic'))
+play.bind("<Button-1>", start)
+
+
+endx=title_x
+endy=400
+d=150
+
+
+    
+
+
+playb = canvas.create_window(endx,endy, window=play)
+
+option = Button(introduce, text='Настройки', padx=95, pady=30)
+option.pack(padx=20, pady=20)
+option.config(cursor='hand2')
+option.config(bd=8, relief=RAISED)
+option.config(bg='purple', fg='white')
+option.config(font=('helvetica', 20, 'underline italic'))
+option.bind("<Button-1>", setti)
+
+optionb = canvas.create_window(endx,endy+d, window=option)
+
+end = Button(introduce,text='Выход', padx=95, pady=30)
+end.pack(padx=20, pady=20)
+end.config(cursor='gumby')
+end.config(bd=8, relief=RAISED)
+end.config(bg='purple', fg='white')
+end.config(font=('helvetica', 20, 'underline italic'))
+end.bind("<Button-1>", outgo)
+
+endb = canvas.create_window(endx,endy+2*d, window=end)
+
+
+
+canvas.pack(expand=YES, fill=BOTH)
+    
+    
+    
+
+
+introduce.mainloop()
+
